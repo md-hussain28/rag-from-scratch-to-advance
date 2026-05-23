@@ -11,7 +11,7 @@ from app.ingestion.pipeline import IngestionPipeline
 
 def main():
     pipeline = IngestionPipeline()
-    result = pipeline.process_file("data/dummy.pdf")
+    result = pipeline.process_file("data/Profile.pdf")
 
    
 
