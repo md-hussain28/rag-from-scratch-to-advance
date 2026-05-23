@@ -1,13 +1,13 @@
 import unicodedata
 from typing import List
 
-class UnicodeCleaner:
+class Cleaner:
     """
     Node 3: Sanitization & Standardization Layer.
     Fixes character encoding variations, strips control sequences, 
     and converts extracted arrays into unified Markdown text.
     """
-    def clean(self, title: str, raw_text: str, tables: List[List[str]]) -> str:
+    def clean(self, title: str, raw_text: str) -> str:
         # Step 1: Enforce uniform NFC normalization to resolve byte discrepancies
         normalized_title = unicodedata.normalize("NFC", title.strip())
         normalized_text = unicodedata.normalize("NFC", raw_text)
@@ -25,19 +25,5 @@ class UnicodeCleaner:
         # Step 3: Format text and structured matrices into clean Markdown syntax
         markdown_output = f"# {normalized_title}\n\n{clean_narrative}\n\n"
         
-        if tables and len(tables) > 0:
-            headers = tables[0]
-            data_rows = tables[1:]
-            
-            # Construct standard Markdown table headers and lines
-            markdown_output += "| " + " | ".join(headers) + " |\n"
-            markdown_output += "| " + " | ".join(["---"] * len(headers)) + " |\n"
-            
-            # Append rows securely
-            for row in data_rows:
-                # Pad row segments if short to maintain structural alignment
-                if len(row) < len(headers):
-                    row.extend([""] * (len(headers) - len(row)))
-                markdown_output += "| " + " | ".join(row[:len(headers)]) + " |\n"
 
         return markdown_output.strip()
