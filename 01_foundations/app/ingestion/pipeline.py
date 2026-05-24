@@ -14,17 +14,17 @@ class IngestionPipeline:
     def process_file(self, file_path: str) -> Optional[IngestionResult]:
 
         file_payload = self.loader.load_document(file_path)
-        print(f"File Payload: {file_payload} \n\n")
+    
 
         parsed_components = self.parser.parse(file_payload)
-        print(f"Parsed Components: {parsed_components} \n\n")
+    
 
         #Node 3: Sanitize text and build the unified Markdown structure
         clean_markdown = self.cleaner.clean(
             title=parsed_components.title,
             raw_text=parsed_components.content,
         )
-        print(f"Clean Markdown: {clean_markdown} \n\n")
+        
 
         # Content Deduplication Guard
         # TODO: Implement content deduplication guard

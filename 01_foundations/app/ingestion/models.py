@@ -19,3 +19,7 @@ class ParsedDocument(BaseModel):
     content: str
     metadata: FileMetadata
 
+class IngestionResult(BaseModel):
+    document_hash: str
+    markdown_content: str
+    system_metadata: FileMetadata
